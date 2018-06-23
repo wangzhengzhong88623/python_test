@@ -68,8 +68,12 @@ def orm(request):
 #     #    print  (i.id,i.username,i.password)
 #     #models.userinfo.objects.filter(id=4).delete()
 #     #models.userinfo.objects.filter(id=3).update(password=66666)
-     models.userinfo.objects.create(username ='wangzz',password ='password')
-     return HttpResponse('ok')
+     username = 'root'
+     password = 'password'
+     email =  '363263458@qq.com'
+     models.UserGroup.objects.create(uid ='1',caption='admin')
+     models.UserInfo.objects.create(username = username ,password =password,email= email,user_group_id='1')
+     return HttpResponse('管理员:%s,密码:%s,邮箱:%s' % (username,password,email))
 #----------------
 def login2(request):
      if request.method == "GET":
@@ -77,7 +81,7 @@ def login2(request):
      elif request.method == "POST":
          u = request.POST.get('user')
          p = request.POST.get('pwd')
-         result = models.userinfo.objects.filter(username=u,password=p).first()
+         result = models.UserInfo.objects.filter(username=u,password=p).first()
          if result:
                  print (result)
                  return  redirect('/home2/')
