@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资产管理后台</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .menu{
+            display: block;
+            padding: 5px;
+
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 48px;background-color: black;color: white">
+
+    </div>
+    <div>
+        <div style="position: absolute;top:48px;bottom: 0;left: 0;width: 200px;background-color: green;">
+            <a class="menu" href="/user_management/">用户管理</a>
+            <a class="menu" href="/ssets_see/">资产查看</a>
+            <a class="menu" href="/assets_management/">资产管理</a>
+        </div>
+        <div style="position:absolute;top:48px;left: 210px;bottom: 0;right: 0;overflow: auto">
+              <h3>编辑用户{{ obj.username }}</h3>
+                 <form method="post" action="/user_management-edit-{{ obj.id }}/">
+                    <input style="display: none" type="text" name="id" value="{{ obj.id }}" />
+                    <input type="text" name="username" value="{{ obj.username }}" />
+                    <input type="text" name="password" value="{{ obj.password }}"/>
+                    <input type="submit" value="提交" />
+                </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+
