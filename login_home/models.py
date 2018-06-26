@@ -14,13 +14,16 @@ class UserInfo(models.Model):
     email = models.CharField(max_length=60,null=True)
     test = models.EmailField(max_length=19,null=True,error_messages={'invalid': '请输入密码'})
     # user_group_id 数字,关联user_group表的uid
-    user_group = models.ForeignKey("UserGroup",to_field='uid') # (uid,catption,ctime,uptimew)
+    user_group = models.ForeignKey("UserGroup",on_delete=models.CASCADE,to_field='uid') # (uid,catption,ctime,uptimew)
     #user_type_choices = (
     #    (1, '超级用户'),
      #    (2, '普通用户'),
     #    (3, '普普通用户'),
     #)
     #user_type_id = models.IntegerField(choices=user_type_choices,default=1)
-     
+#user_list = UserInfo.objects.all()
+#for row in user_list:
+#    print (row.user_group_id)     
+#    print (row.user_group)     
 # Create your models here.
 

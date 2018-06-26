@@ -30,14 +30,18 @@
                 <input type="text" name="user" />
                 <input type="text" name="pwd" />
                 <input type="text" name="email" />
-                <input type="text" name="d" />
+                <select name="group_id">
+                     {% for item in group_list %}
+                     <option value="{{ item.uid }}"> {{ item.caption }} </option>
+                     {% endfor %}
+                </select>
                 <input type="submit" value="添加"/>
             </form>
               <h3>用户列表</h3>
             <ul>
                 {% for row in user_list %}
                 <li>
-                    <a href="/user_management-detail-{{row.id}}/">用户名:{{row.username}}</a>
+                    <a>用户名:</a><a href="/user_management-detail-{{row.id}}/">{{row.username}}</a>
                     <a href="/user_management-del-{{row.id}}/">删除</a>
                     <a href="/user_management-edit-{{row.id}}/">编辑</a>
                 </li>

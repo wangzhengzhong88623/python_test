@@ -7,13 +7,15 @@ from login_home import models
 def user_management(request):
   if request.method == 'GET':
       user_list = models.UserInfo.objects.all()
-      return render(request,'user_management.html',{'user_list':user_list})
+      #其实user_list=(id,username,password,email,user_group_id(uid,caption))
+      group_list = models.UserGroup.objects.all()
+      return render(request,'user_management.html',{'user_list':user_list,'group_list':group_list})
   elif request.method == 'POST':
       u = request.POST.get('user')
       p = request.POST.get('pwd')
       e = request.POST.get('email')
-      d = request.POST.get('d')
-      models.UserInfo.objects.create(username=u,password=p,email=e,user_group_id=d)
+      uid = request.POST.get('group_id')
+      models.UserInfo.objects.create(username=u,password=p,email=e,user_group_id=uid)
       return redirect('user_management.html')
 def user_management_detail(request,nid):
     obj = models.UserInfo.objects.filter(id=nid).first()
