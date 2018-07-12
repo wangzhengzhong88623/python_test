@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login_home',
+    'host_test',
 ]
 
 MIDDLEWARE = [

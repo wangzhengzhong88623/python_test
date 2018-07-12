@@ -21,6 +21,7 @@ urlpatterns = [
     url("",include("login_home.urls")),
     url("", include('user_info.urls')),
     url("", include('host.urls')),
+    url("", include('host_test.urls')),
     url(r'^admin/', admin.site.urls),
     ##url(r'^login/', views.login),
     #url(r'^home/', views.home),
