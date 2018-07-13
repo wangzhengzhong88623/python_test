@@ -1,5 +1,7 @@
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import View
-def host_test_see(request):
-    pass
+from host_test import models
+def business(request):
+    v = models.Business.objects.all()
+    return render(request,'business.html',{'v':v})
