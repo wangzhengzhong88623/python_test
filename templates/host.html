@@ -5,11 +5,78 @@
     <title>业务线列表</title>
 </head>
 <body>
-    <h1>业务线列表</h1>
-    <ul>
-      {% for row in v %}
-          <li>{{row.id}} - {{row.caption}} - {{row.code}}</li>
-      {% endfor %}
-    </ul>
+    <h1>业务线列表(对象)</h1>
+    <table border="1">
+    <thead>
+     <tr>
+       <th>主机名</th>
+       <th>主机ip</th>
+       <th>主机端口</th>
+       <th>业务线名称</th>
+       <th>业务线编码</th>
+     </tr>
+    </thead>
+      <tbody>
+          {% for i in v1%}
+            <tr hid="{{i.nid}}" bid="{{i.bid}}">
+               <td>{{i.hostname}}</td>
+               <td>{{i.ip}}</td>
+               <td>{{i.port}}</td>
+               <td>{{i.b.caption}}</td>
+               <td>{{i.b.code}}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+</body>
+<body>
+    <h1>业务线列表(字典)</h1>
+    <table border="1">
+    <thead>
+     <tr>
+       <th>主机名</th>
+       <th>主机ip</th>
+       <th>主机端口</th>
+       <th>业务线名称</th>
+       <th>业务线编码</th>
+     </tr>
+    </thead>
+      <tbody>
+          {% for i in v2%}
+            <tr hid="{{i.nid}}" bid="{{i.bid}}">
+               <td>{{i.hostname}}</td>
+               <td>{{i.ip}}</td>
+               <td>{{i.port}}</td>
+               <td>{{i.b__caption}}</td>
+               <td>{{i.b__code}}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+</body>
+<body>
+    <h1>业务线列表(元组)</h1>
+    <table border="1">
+    <thead>
+     <tr>
+       <th>主机名</th>
+       <th>主机ip</th>
+       <th>主机端口</th>
+       <th>业务线名称</th>
+       <th>业务线编码</th>
+     </tr>
+    </thead>
+      <tbody>
+          {% for i in v3%}
+            <tr hid="{{i.0}}">
+               <td>{{i.1}}</td>
+               <td>{{i.2}}</td>
+               <td>{{i.3}}</td>
+               <td>{{i.4}}</td>
+               <td>{{i.5}}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
 </body>
 </html>
