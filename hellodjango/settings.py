@@ -80,20 +80,20 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-##公司数据库
+##家数据库
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'wangzz',#连接的库名
+        'USER':'root',#连接的用户
+        'PASSWORD':'Pass3@word',#连接密码
+        'HOST':'192.168.1.11',#连接ip
+        'PORT':'3306',#连接端口
+#公司数据库
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME':'wangzz',#连接的库名
 #        'USER':'root',#连接的用户
 #        'PASSWORD':'',#连接密码
 #        'HOST':'127.0.0.1',#连接ip
 #        'PORT':'3306',#连接端口
-#家数据库
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':'wangzz',#连接的库名
-        'USER':'root',#连接的用户
-        'PASSWORD':'',#连接密码
-        'HOST':'127.0.0.1',#连接ip
-        'PORT':'3306',#连接端口
 
     }
 }
@@ -139,3 +139,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+#APPEND_SLASH=False
