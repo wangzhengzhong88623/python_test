@@ -2,12 +2,32 @@ from django.shortcuts import redirect,HttpResponse
 from django.shortcuts import render
 from django.views import View
 from host_test import models
+import json
 def business(request):
     v = models.Business.objects.all()
     return render(request,'business.html',{'v':v})
 
 
-
+def test_ajax(request):
+    ret = {'status': True, 'error': None, 'data': None}
+    try:
+        h = request.POST.get('hostname')
+        i = request.POST.get('ip')
+        p = request.POST.get('port')
+        b = request.POST.get('b_id')
+        print (h,i,p,b)
+        if h and len(h) > 5:
+            models.Host_test.objects.create(hostname=h,
+                                           ip=i,
+                                           port=p,
+                                           b_id=b)
+        else:
+            ret['status'] = False
+            ret['error'] = "太短了"
+    except Exception as e:
+         ret['status'] = False
+         ret['error'] = '请求错误'
+    return HttpResponse(json.dumps(ret))
 
 def host(request):
    # v1 = models.Host_test.objects.filter(nid__gt=0)#过滤条件nid大于0得
@@ -47,3 +67,4 @@ def host(request):
        print (h,i,p,b)
        models.Host_test.objects.create(hostname = h,ip = i,port = p,b_id = b)
        return redirect('/host')
+

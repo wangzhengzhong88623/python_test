@@ -17,7 +17,7 @@
         opacity: 0.6;
         z-index:100;
       }
-      .add-modal{
+      .add-modal,.edit-modal{
         position: fixed;
         height: 300px;
         width: 400px;
@@ -43,6 +43,7 @@
        <th>主机端口</th>
        <th>业务线名称</th>
        <th>业务线编码</th>
+       <th>操作</th>
      </tr>
     </thead>
       <tbody>
@@ -53,6 +54,7 @@
                <td>{{i.port}}</td>
                <td>{{i.b.caption}}</td>
                <td>{{i.b.code}}</td>
+              <td><a class="edit">编辑</a>|<a class="delete">删除</a></td>
             </tr>
           {% endfor %}
       </tbody>
@@ -108,6 +110,35 @@
       </tbody>
     </table>
     <div class="shade hide"> </div>
+
+   <div class="edit-modal hide"> 
+         <form id="add_form" method="POST" action="/host/">
+            <div class="group">
+                <input id="host" type="text" placeholder="主机名" name="hostname" />
+            </div>
+
+            <div class="group">
+                <input id="ip" type="text" placeholder="IP" name="ip" />
+            </div>
+
+            <div class="group">
+                <input id="port" type="text" placeholder="端口" name="port" />
+            </div>
+            <div class="group">
+                <select id="sel" name="b_id">
+                    {% for op in b_list %}
+                    <option value="{{ op.id }}">{{ op.caption }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input type="submit" value="提交" />
+            <a id="ajax_submit" >悄悄提交</a>
+            <input id="cancel" type="button" value="取消" />
+            <span id="erro_msg" style="color: red"></span>
+      </form>
+    </div>
+
     <div class="add-modal hide">
        <form id="add_form" method="POST" action="/host/">
             <div class="group">
@@ -138,13 +169,39 @@
     </div>
     <script src="/static/jquery-1.12.4.js"></script>
     <script>
-        $(function(){
-
+            $(function(){
             $('#add_host').click(function(){
                 $('.shade,.add-modal').removeClass('hide');
             });
 
+            $('#cancel').click(function(){
+                $('.shade,.add-modal').addClass('hide');
             });
+            
+            
+            $('.edit').click(function(){
+                $('.shade,.edit-modal').removeClass('hide')                
+            });
+
+
+            $('#ajax_submit').click(function(){
+debugger;
+                $.ajax({
+                    url: "/test_ajax/",
+                    type: 'POST',
+                    data: {'hostname': $('#host').val(), 'ip': $('#ip').val(), 'port': $('#port').val(), 'b_id': $('#sel').val()},
+                    data: $('#add_form').serialize(),
+                    success: function(data){
+                        var obj = JSON.parse(data);
+                        if(obj.status){
+                            location.reload();
+                        }else{
+                            $('#erro_msg').text(obj.error);
+                        }
+                    }
+                })
+            });
+          });
     </script>
 </body>
 </html>
