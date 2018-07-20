@@ -14,7 +14,7 @@ def test_ajax(request):
         h = request.POST.get('hostname')
         i = request.POST.get('ip')
         p = request.POST.get('port')
-        b = request.POST.get('b_id')
+        b = request.POST.get('bid')
         print (h,i,p,b)
         if h and len(h) > 5:
             models.Host_test.objects.create(hostname=h,
