@@ -55,7 +55,6 @@
                <td>{{i.b.caption}}</td>
                <td>{{i.b.code}}</td>
                <td><button class="edit" >编辑</button>|<button class="delete" >删除</button></td>
-             <!-- <td><a class="edit">编辑</a>|<a class="delete">删除</a></td> -->
             </tr>
           {% endfor %}
       </tbody>
@@ -73,7 +72,6 @@
                     <option value="{{ op.id }}">{{ op.caption }}</option>
                     {% endfor %}
                 </select>
-            <!-- <a id="ajax_submit_edit" >确认编辑</a> -->
             <button id="ajax_submit_edit" >编辑</button>
             <button id="ajax_submit_edit" >删除</button>
       </form>
@@ -101,7 +99,6 @@
             </div>
 
             <input type="submit" value="提交" />
-            <!-- <a id="ajax_submit" >悄悄提交</a> -->
             <button id="ajax_submit" >悄悄提交</button>
             <input id="cancel" type="button" value="取消" />
             <span id="erro_msg" style="color: red"></span>
@@ -141,7 +138,6 @@
                 $.ajax({
                     url: "/test_ajax/",
                     type: 'POST',
-                    //data: {'hostname': $('#host').val(), 'ip': $('#ip').val(), 'port': $('#port').val(), 'b_id': $('#sel').val()},
                     data: $('#add_form').serialize(),
                     success: function(data){
                         var obj = JSON.parse(data);

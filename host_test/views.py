@@ -2,7 +2,7 @@ from django.shortcuts import redirect,HttpResponse
 from django.shortcuts import render
 from django.views import View
 from host_test import models
-import json
+import json,pdb
 def business(request):
     v = models.Business.objects.all()
     return render(request,'business.html',{'v':v})
@@ -16,7 +16,9 @@ def test_ajax(request):
         p = request.POST.get('port')
         b = request.POST.get('bid')
         print (h,i,p,b)
+        print (len(h))
         if h and len(h) > 5:
+            pdb.set_trace()
             models.Host_test.objects.create(hostname=h,
                                            ip=i,
                                            port=p,
@@ -63,7 +65,7 @@ def host(request):
        h = request.POST.get('hostname')
        i = request.POST.get('ip')
        p = request.POST.get('port')
-       b = request.POST.get('b_id')
+       b = request.POST.get('bid')
        print (h,i,p,b)
        models.Host_test.objects.create(hostname = h,ip = i,port = p,b_id = b)
        return redirect('/host')
