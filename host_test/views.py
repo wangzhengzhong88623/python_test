@@ -11,15 +11,14 @@ def business(request):
 def test_ajax(request):
     ret = {'status': True, 'error': None, 'data': None}
     try:
-        h = request.POST.get('hostname')
+        host = request.POST.get('hostname')
         i = request.POST.get('ip')
         p = request.POST.get('port')
         b = request.POST.get('bid')
-        print (h,i,p,b)
-        print (len(h))
-        if h and len(h) > 5:
-            pdb.set_trace()
-            models.Host_test.objects.create(hostname=h,
+        print (host,i,p,b)
+        print (len(host))
+        if host and len(host) > 5:
+            models.Host_test.objects.create(hostname=host,
                                            ip=i,
                                            port=p,
                                            b_id=b)
@@ -69,4 +68,20 @@ def host(request):
        print (h,i,p,b)
        models.Host_test.objects.create(hostname = h,ip = i,port = p,b_id = b)
        return redirect('/host')
-
+def test_app(request):
+     if request.method == "GET":
+         app_list = models.Application.objects.all()
+         host_list = models.Host_test.objects.all()
+         return render(request,'app.html',{"app_list":app_list,"host_list":host_list})
+     elif request.method == "POST":
+         app_name = request.POST.get('app_name')
+         host_list = request.POST.get('host_list')
+         print (app_name,host_list)
+         obj = models.Application.objects.create(name=app_name)
+         obj.r.add(*host_list)
+         return redirect('/test_app')
+def ajax_add_app(request):
+         ret = {'status':True,'error':None,'data':None}
+         print(request.POST.get('user'))
+         print(request.POST.get('host_list'))
+         return HttpResponse(json.dumps(ret))       
