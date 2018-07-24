@@ -75,13 +75,16 @@ def test_app(request):
          return render(request,'app.html',{"app_list":app_list,"host_list":host_list})
      elif request.method == "POST":
          app_name = request.POST.get('app_name')
-         host_list = request.POST.get('host_list')
+         host_list = request.POST.getlist('host_list')
          print (app_name,host_list)
          obj = models.Application.objects.create(name=app_name)
          obj.r.add(*host_list)
          return redirect('/test_app')
 def ajax_add_app(request):
          ret = {'status':True,'error':None,'data':None}
-         print(request.POST.get('user'))
-         print(request.POST.get('host_list'))
+         app_name = request.POST.get('app_name')
+         host_list = request.POST.getlist('host_list')
+         obj = models.Application.objects.create(name=app_name)
+         obj.r.add(*host_list)
+
          return HttpResponse(json.dumps(ret))       
