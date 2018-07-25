@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^test_ajax/$', views.test_ajax),
     url(r'^test_app/$', views.test_app),
     url(r'^ajax_add_app/$', views.ajax_add_app),
+    url(r'^edit_host/$', views.edit_host),
 ]
 

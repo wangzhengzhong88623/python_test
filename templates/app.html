@@ -59,7 +59,7 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a class="edit">编辑</a>
+                        <button class="edit">编辑</button>
                     </td>
                 </tr>
             {% endfor %}
@@ -90,6 +90,7 @@
     </div>
 
     <div class="edit-modal hide">
+         caocaocao
         <form id="edit_form" method="POST" action="/host">
                 <input type="text" name="nid" style="display:none" />
                 <input type="text" placeholder="应用名称" name="app" />
@@ -109,6 +110,7 @@
         $(function(){
 
             $('#add_app').click(function(){
+                alert(1);
                 $('.shade,.add-modal').removeClass('hide');
             });
 
@@ -132,10 +134,22 @@
 
                     }
 
-                });
+                })
             });
-                     
+            $('.edit').click(function(){
+               
+              // $('.shade,.edit-model').removeClass('hide');
+             $('.shade').removeClass('hide');
+               $('.edit-model').removeClass('hide');
+               var hid_list = []
+               $(this).parent().prev().children().each(function(){
+                   var hid = $(this).attr('hid');
+                   hid_list.push(hid)
+              });
+               $('#edit_form').find('select').val(hid_list);
+           });
          });
+          
 
     </script>
 </body>

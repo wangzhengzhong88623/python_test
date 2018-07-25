@@ -7,7 +7,7 @@ def business(request):
     v = models.Business.objects.all()
     return render(request,'business.html',{'v':v})
 
-
+#--------------------------------------------------------------------
 def test_ajax(request):
     ret = {'status': True, 'error': None, 'data': None}
     try:
@@ -65,9 +65,11 @@ def host(request):
        i = request.POST.get('ip')
        p = request.POST.get('port')
        b = request.POST.get('bid')
-       print (h,i,p,b)
        models.Host_test.objects.create(hostname = h,ip = i,port = p,b_id = b)
        return redirect('/host')
+def edit_host():
+    pass
+#-------------------------------------------------------------
 def test_app(request):
      if request.method == "GET":
          app_list = models.Application.objects.all()
@@ -86,5 +88,4 @@ def ajax_add_app(request):
          host_list = request.POST.getlist('host_list')
          obj = models.Application.objects.create(name=app_name)
          obj.r.add(*host_list)
-
          return HttpResponse(json.dumps(ret))       
