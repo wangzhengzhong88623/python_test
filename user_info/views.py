@@ -22,6 +22,7 @@ def user_management_detail(request,nid):
     return render(request,'user_management_detail.html',{'obj':obj})
 def user_management_del(request,nid):
     models.UserInfo.objects.filter(id=nid).delete()
+    print (nid)
     return redirect('/user_management/')
 def user_management_edit(request,nid):
     if request.method == "GET":

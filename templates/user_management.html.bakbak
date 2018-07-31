@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资产管理后台</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .menu{
+            display: block;
+            padding: 5px;
+
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 48px;background-color: black;color: white">
+        
+    </div>
+    <div>
+        <div style="position: absolute;top:48px;bottom: 0;left: 0;width: 200px;background-color: green;">
+            <a class="menu" href="/user_management/">用户管理</a>
+            <a class="menu" href="/service_line_management/">业务线管理</a>
+            <a class="menu" href="/host_management/">主机管理</a>     
+        </div>
+        <div style="position:absolute;bottom: 0;right: 0;overflow: auto">
+        <h3>添加用户</h3>
+            <form method="POST" action="/user_management/">
+                <input type="text" name="user" />
+                <input type="text" name="pwd" />
+                <input type="text" name="email" />
+                <select name="group_id">
+                     {% for item in group_list %}
+                     <option value="{{ item.uid }}"> {{ item.caption }} </option>
+                     {% endfor %}
+                </select>
+                <input type="submit" value="添加"/>
+            </form>
+              <h3>用户列表</h3>
+            <ul>
+                {% for row in user_list %}
+                <li>
+                    <a>用户名:</a><a href="/user_management-detail-{{row.id}}/">{{row.username}}</a>
+                    <a href="/user_management-del-{{row.id}}/">删除</a>
+                    <a href="/user_management-edit-{{row.id}}/">编辑</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

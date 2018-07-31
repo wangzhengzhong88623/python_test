@@ -1,54 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>资产管理后台</title>
-    <style>
-        body{
-            margin: 0;
-        }
-        .menu{
-            display: block;
-            padding: 5px;
-
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CMDB管理系统</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/htmleaf-demo.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/nav.css">
+        <link rel="stylesheet" type="text/css" href="../static/fonts/iconfont.css">
 </head>
 <body>
-    <div style="height: 48px;background-color: black;color: white">
-        
-    </div>
-    <div>
-        <div style="position: absolute;top:48px;bottom: 0;left: 0;width: 200px;background-color: green;">
-            <a class="menu" href="/user_management/">用户管理</a>
-            <a class="menu" href="/service_line_management/">业务线管理</a>
-            <a class="menu" href="/host_management/">主机管理</a>     
-        </div>
-        <div style="position:absolute;top:48px;left: 210px;bottom: 0;right: 0;overflow: auto">
-        <h3>添加用户</h3>
-            <form method="POST" action="/user_management/">
-                <input type="text" name="user" />
-                <input type="text" name="pwd" />
-                <input type="text" name="email" />
-                <select name="group_id">
-                     {% for item in group_list %}
-                     <option value="{{ item.uid }}"> {{ item.caption }} </option>
-                     {% endfor %}
-                </select>
-                <input type="submit" value="添加"/>
-            </form>
-              <h3>用户列表</h3>
-            <ul>
-                {% for row in user_list %}
-                <li>
-                    <a>用户名:</a><a href="/user_management-detail-{{row.id}}/">{{row.username}}</a>
-                    <a href="/user_management-del-{{row.id}}/">删除</a>
-                    <a href="/user_management-edit-{{row.id}}/">编辑</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+	<div class="nav">
+	        <div class="nav-top">
+	            <div id="mini" style="border-bottom:1px solid rgba(255,255,255,.1)"><img src="../static/images/mini.png" ></div>
+	        </div>
+	        <ul>
+	            <li class="nav-item">
+	                <a href="javascript:;"><i class="my-icon nav-icon icon_1"></i><span>用户和组</span><i class="my-icon nav-more"></i></a>
+	                <ul>
+	                    <li><a href="/user_management/"><span>用户管理</span></a></li>
+	                    <li><a href="javascript:;"><span>组管理</span></a></li>
+	                </ul>
+	            </li>
+	            <li class="nav-item">
+	                <a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>业务线</span><i class="my-icon nav-more"></i></a>
+	                <ul>
+	                    <li><a href="/service_line_management/"><span>业务线管理</span></a></li>
+	                </ul>
+	            </li>
+	            <li class="nav-item">
+	                <a href="javascript:;"><i class="my-icon nav-icon icon_3"></i><span>主机</span><i class="my-icon nav-more"></i></a>
+	                <ul>
+	                    <li><a href="/host_management/"><span>主机管理</span></a></li>
 
+	                </ul>
+	            </li>
+	        </ul>
+	    </div>
+<!-- -->
+<!-- <div class="htmleaf-container"> -->
+<!--		<header class="htmleaf-header"> -->
+                <div style="color:#000;position: absolute;top:48px;bottom: 0;right: 0;left: 230px;width: 850px;">
+                   <h3>添加用户</h3>
+                       <form method="POST" action="/user_management/">
+                         <input type="text" name="user" />
+                         <input type="text" name="pwd" />
+                         <input type="text" name="email" />
+                         <select name="group_id">
+                            {% for item in group_list %}
+                                <option value="{{ item.uid }}"> {{ item.caption }} </option>
+                            {% endfor %}
+                         <input type="submit" value="添加"/>
+                         </select>
+                       </form>
+                 <h3 style="color:#000;">用户列表</h3>
+                   <table border="1">
+                    <thead>
+                     <tr>
+                      <th>用户命</th>
+                      <th>用户组</th>
+                      <th>密码</th>
+                      <th>邮箱</th>
+                      <th>操作</th>
+                     </tr>
+                    </thead>
+                   <tbody>
+                          {% for row in user_list %}
+                     <tr hid="{{row.id}}" bid="{{row.b_id}}">
+                      <td>{{row.username}}</td>
+                      <td>{{row.user_group.caption}}</td>
+                      <td>{{row.password}}</td>
+                      <td>{{row.email}}</td>
+                      <!--<td><button class="edit" >编辑</button>|<button class="delete"  href="/user_management-del-{{row.id}}/">删除</button></td>-->
+                      <td>
+                      <a href="/user_management-edit-{{row.id}}/">编辑</a>
+                      <a href="/user_management-del-{{row.id}}/">删除</a>
+                      </td>
+                     </tr>
+                          {% endfor %}
+                   </tbody>
+                  </table>
+	       </div>
+<!-- -->	
+	<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.0.min.js"><\/script>')</script>
+	<script type="text/javascript" src="../static/js/nav.js"></script>
 </body>
 </html>

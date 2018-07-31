@@ -2,6 +2,7 @@ from django.shortcuts import redirect,HttpResponse
 from django.shortcuts import render
 from django.views import View
 from host_test import models
+from django.utils.safestring import mark_safe
 import json,pdb
 def business(request):
     v = models.Business.objects.all()
@@ -30,6 +31,7 @@ def test_ajax(request):
          ret['error'] = '请求错误'
     return HttpResponse(json.dumps(ret))
 
+from django.core.handlers.wsgi import WSGIRequest
 def host(request):
    # v1 = models.Host_test.objects.filter(nid__gt=0)#过滤条件nid大于0得
    # v2 = models.Host_test.objects.filter(nid__gt=0).values('nid','hostname','ip','port','b__caption','b__code')
@@ -54,6 +56,9 @@ def host(request):
    # print ()
    # #for row in v1:
    # #    print(row.nid,row.hostname,row.ip,row.port,row.b_id,row.b.caption,row.b.code,sep='\t')
+    print(type(request))
+    print(request.environ)
+    print(request.environ['HTTP_USER_AGENT'])
     if request.method == "GET":
        v1 = models.Host_test.objects.filter(nid__gt=0)#过滤条件nid大于0得
        v2 = models.Host_test.objects.filter(nid__gt=0).values('nid','hostname','ip','port','b__caption','b__code')
@@ -89,3 +94,49 @@ def ajax_add_app(request):
          obj = models.Application.objects.create(name=app_name)
          obj.r.add(*host_list)
          return HttpResponse(json.dumps(ret))       
+#-------------------------------------------------------------
+from django.utils.safestring import mark_safe
+#分页
+#def user_list(request):
+#        li = []
+#        for i in range(100):
+#            li.append(i)
+#        return render(request,'user_list.html',{'li':li})  
+
+#LIST = []
+#for i in range(100):
+#    LIST.append(i)
+#def user_list(request):
+#    current_page = request.GET.get('p')
+#    current_page = int(current_page)
+#    start = (current_page-1) * 10
+#    end = current_page * 10 
+#    data = LIST[start:end]
+#    return render(request,'user_list.html',{'li':data}) 
+
+LIST = []
+for i in range(105):
+    LIST.append(i)
+def user_list(request):
+    current_page = request.GET.get('p')
+    current_page = int(current_page)
+    start = (current_page-1) * 10
+    end = current_page * 10
+    data = LIST[start:end]
+
+
+    all_count = len(LIST)
+    page_list = []
+    count,y = divmod(all_count,10)
+    if y:
+        count += 1
+    for i in range(1,count+1):
+        if i == current_page:
+            temp = '<a class="page active" href=/user_list/?p=%s>%s</a>' % (i,i)
+        else:
+        
+            temp = '<a class="page" href=/user_list/?p=%s>%s</a>' % (i,i)
+        page_list.append(temp)
+    page_str = "".join(page_list)
+    page_str = mark_safe(page_str)
+    return render(request,'user_list.html',{'li':data,'page_str':page_str})
