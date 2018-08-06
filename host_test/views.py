@@ -113,30 +113,72 @@ from django.utils.safestring import mark_safe
 #    end = current_page * 10 
 #    data = LIST[start:end]
 #    return render(request,'user_list.html',{'li':data}) 
-
+#------
+#------
 LIST = []
-for i in range(105):
+for i in range(1050):
     LIST.append(i)
+from utils import pagination
 def user_list(request):
-    current_page = request.GET.get('p')
+    current_page = request.GET.get('p',1)
     current_page = int(current_page)
-    start = (current_page-1) * 10
-    end = current_page * 10
-    data = LIST[start:end]
+    page_obj = pagination.Page(current_page,len(LIST))
+    data = LIST[page_obj.start:page_obj.end]
+    page_str = page_obj.page_str("/user_list/")
+    
 
 
-    all_count = len(LIST)
-    page_list = []
-    count,y = divmod(all_count,10)
-    if y:
-        count += 1
-    for i in range(1,count+1):
-        if i == current_page:
-            temp = '<a class="page active" href=/user_list/?p=%s>%s</a>' % (i,i)
-        else:
-        
-            temp = '<a class="page" href=/user_list/?p=%s>%s</a>' % (i,i)
-        page_list.append(temp)
-    page_str = "".join(page_list)
-    page_str = mark_safe(page_str)
+#    start = (current_page-1) * 10
+#    end = current_page * 10
+#    data = LIST[start:end]
+#
+#
+#    all_count = len(LIST)
+#    page_list = []
+#    page_num =7
+#    count,y = divmod(all_count,10)
+#    if y:
+#        count += 1
+#    if count < page_num:
+#       start_index = 1
+#       end_index = count + 1
+#    else:
+#        if current_page <= (page_num+1)/2:
+#            start_index = 1
+#            end_index = page_num +1
+#        else:
+#            start_index = current_page - (page_num-1)/2
+#            end_index = current_page + (page_num+1)/2
+#            if ((page_num-1)/2) > count:
+#                end_index = count + 1
+#                start_index = count  - page_num + 1
+#    if current_page == 1:
+#        prev = '<a class="page" href="#">上一页</a>'
+#    else:
+#        prev = '<a class="page" href="/user_list/?p=%s">上一页</a>' % (current_page-1,)
+#    page_list.append(prev)
+#    for i in range(int(start_index),int(end_index)):
+#        if i == current_page:
+#            temp = '<a class="page active" href=/user_list/?p=%s>%s</a>' % (i,i)
+#        else:
+#        
+#            temp = '<a class="page" href=/user_list/?p=%s>%s</a>' % (i,i)
+#        page_list.append(temp)
+#    if current_page == count:
+#        nex = '<a class="page" href="#">下一页</a>'
+#    else:
+#        nex = '<a class="page" href="/user_list/?p=%s">下一页</a>' % (current_page+1,)
+#    page_list.append(nex)
+#    jump="""
+#    <input type='text' /><a onclick='jumpTo(this,"/user_list/?p=");'>GO</a>
+#    <script>
+#        function jumpTo(ths,base){
+#            var val = ths.previousSibling.value;
+#            location.href = base + val;
+#    } 
+#    </script>
+#    """
+#    page_list.append(jump)
+#    page_str = mark_safe("".join(page_list))
     return render(request,'user_list.html',{'li':data,'page_str':page_str})
+#------
