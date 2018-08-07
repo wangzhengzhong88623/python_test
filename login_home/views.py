@@ -94,5 +94,30 @@ def home2(request):
      return render(request,"home2.html")
 
 
-
-
+######cookie######
+user_info = {
+    'wangzhengzhong':{'pwd':"password"},
+    'fengkun':{'pwd':"password"},
+}
+def login_cookie(request):
+    if request.method == "GET":
+        return render(request,'login_cookie.html')
+    if request.method == "POST":
+        u = request.POST.get("username")
+        p = request.POST.get("pwd")
+        dic = user_info.get(u)
+        if not dic:
+            return render(request,'login_cookie.html')
+        if dic['pwd'] == p:
+            res = redirect('/login_cookie_index/')
+            res.set_cookie('username111',u)
+            return res
+        else:
+            return render(request,'login_cookie.html')
+def login_cookie_index(request):
+    v = request.COOKIES.get('username111')
+    if not v:
+       return redirect("/login_cookie/")
+    return render(request,'login_cookie_index.html',{'current_user':v})
+def cookie(request):
+    pass

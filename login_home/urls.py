@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^detail-(\d+).html', views.detail),
     url(r'^index2/', views.index2,name='xxxx'),
     url(r'^orm/', views.orm),
+    url(r'^login_cookie/',views.login_cookie),
+    url(r'^login_cookie_index/',views.login_cookie_index),
 ]
 
 
