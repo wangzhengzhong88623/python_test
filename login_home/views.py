@@ -110,7 +110,11 @@ def login_cookie(request):
             return render(request,'login_cookie.html')
         if dic['pwd'] == p:
             res = redirect('/login_cookie_index/')
-            res.set_cookie('username111',u)
+            #res.set_cookie('username111',u,max_age=10)
+            import datetime
+            current_date = datetime.datetime.utcnow()
+            current_date = current_date + datetime.timedelta(seconds=5)
+            res.set_cookie('username111',u,expires=current_date)
             return res
         else:
             return render(request,'login_cookie.html')
@@ -120,4 +124,17 @@ def login_cookie_index(request):
        return redirect("/login_cookie/")
     return render(request,'login_cookie_index.html',{'current_user':v})
 def cookie(request):
-    pass
+    request.COOKIES
+    request.COOKIES['username111']
+    request.COOKIES.get('username111')
+    response = render(request,'login_cookie_index.html')
+    response = redirect('/login_cookie_index/')
+    # 设置cookie,关闭浏览器失效
+    response.set_cookie('key',"value")
+    # 设置cookie,N秒只有失效
+    response.set_cookie('username111',"value",max_age=10)
+    # 设置cookie,截止时间失效
+    import datetime
+    current_date = datetime.datetime.utcnow()
+    current_date = current_date + datetime.timedelta(seconds=5)
+    res.set_cookie('username111',u,expires=current_date)
