@@ -23,7 +23,7 @@
          {% endfor %}
      </ul>
      <div>
-         <select id="ps" omchange="changePageSize(this)">
+         <select omchange="changePagesize">
              <option value="10">10</option>
              <option value="10">30</option>
              <option value="10">50</option>
@@ -33,14 +33,13 @@
      <div class="pagination">
          {{ page_str }}
      </div>
-     <script src="/static/jquery-1.12.4.js"></script>
-     <script src="/static/jquery.cookie.js"></script>
+     <script> src="/static/jquery-1.12.4.js"</script>
+     <script> src="/static/jquery.cookie.js"</script>
      <script>
-         function changePageSize(ths){
-             var v = $(ths).val();
-             console.log(v);
-             $.cookie('per_page_count',v);
-         } 
+         function changePagesize(){
+             //var v = $(this).wal();
+             //$.cookie()
+         }
      </script>
 </body>
 </html>
