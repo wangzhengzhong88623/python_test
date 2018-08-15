@@ -139,4 +139,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+SESSION_SAVE_EVERY_REQUEST = True
 #APPEND_SLASH=False

@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'^orm/', views.orm),
     url(r'^login_cookie/',views.login_cookie),
     url(r'^login_cookie_index/',views.login_cookie_index),
+    url(r'^login_session/',views.login_session),
+    url(r'^index_session/',views.index_session),
+    url(r'^logout_session/',views.logout_session),
 ]
 
 

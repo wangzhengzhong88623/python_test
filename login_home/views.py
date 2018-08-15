@@ -138,3 +138,32 @@ def cookie(request):
     current_date = datetime.datetime.utcnow()
     current_date = current_date + datetime.timedelta(seconds=5)
     res.set_cookie('username111',u,expires=current_date)
+###############session+cookie#####################
+def login_session(request):
+    if request.method == "GET":
+        return render(request,'login_session.html')
+    elif request.method == "POST":
+        user = request.POST.get('user')
+        pwd = request.POST.get('pwd')
+        if user == 'root' and pwd == '123':
+            #生成随机字符串
+            #写道用户浏览器cookie
+            #保存到session中
+            #在随机字符串对应的字典中设置相关内容
+            request.session['username'] = user
+            request.session['is_login'] = True
+            if request.POST.get('rmb',None) == '1': #认为设置超时时间(默认两周)
+                request.session.set_expiry(10) #session过期时间10秒
+            return redirect('/index_session/')
+        else:
+            return render(request,'login_session.html')
+def index_session(request):
+    #获取当前用户随机字符
+    #根据随机字符获取对应信息
+    if request.session.get('is_login',None):
+        return render(request,'index_session.html',{'username':request.session['username']})
+    else:
+        return HttpResponse('GUN!')
+def logout_session(request):
+    request.session.clear()
+    return redirect('/login_session/')
