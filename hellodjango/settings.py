@@ -139,5 +139,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+#SESSION_ENGINE = 'django.contrib.session.backends.cache' #session存在内存的引擎
+#SESSION_CHAHE_ALIAS = 'memdb'
 SESSION_SAVE_EVERY_REQUEST = True
+#CACHE = {
+#     'memdb':{
+#         'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION':[
+#            '127.0.0.0:11211',
+#         ]
+#   }  
+#}
 #APPEND_SLASH=False
+
+
+
+
+

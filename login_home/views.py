@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views import View
+from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
+
+
 class test(View):
      def get(self,request):
          print (request.method)
@@ -157,6 +161,8 @@ def login_session(request):
             return redirect('/index_session/')
         else:
             return render(request,'login_session.html')
+#@csrf_exempt #不适用csrf
+@csrf_protect#使用csrf
 def index_session(request):
     #获取当前用户随机字符
     #根据随机字符获取对应信息
@@ -167,3 +173,4 @@ def index_session(request):
 def logout_session(request):
     request.session.clear()
     return redirect('/login_session/')
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
