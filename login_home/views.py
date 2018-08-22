@@ -174,3 +174,9 @@ def logout_session(request):
     request.session.clear()
     return redirect('/login_session/')
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
+from django.views.decorators.cache import cache_page
+@cache_page(10) #缓存装饰器
+def cache(request):
+    import time 
+    ctime = time.time()
+    return render(request,'cache.html',{'ctime':ctime})

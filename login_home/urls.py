@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^login_session/',views.login_session),
     url(r'^index_session/',views.index_session),
     url(r'^logout_session/',views.logout_session),
+    url(r'^cache/',views.cache),
 ]
 
 

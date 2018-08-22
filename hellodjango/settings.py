@@ -152,7 +152,12 @@ SESSION_SAVE_EVERY_REQUEST = True
 #}
 #APPEND_SLASH=False
 
-
+CACHES = {  #页面缓存
+    'default':{
+        'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
 
 
 
