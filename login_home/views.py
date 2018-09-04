@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views import View
-from django.views.decorators.cache import cache_page
-from django.views.decorators.csrf import csrf_exempt,csrf_protect
+#from django.views.decorators.cache import cache_page
+#from django.views.decorators.csrf import csrf_exempt,csrf_protect
 
 
 class test(View):
@@ -98,7 +98,7 @@ def home2(request):
      return render(request,"home2.html")
 
 
-######cookie######
+#######cookie######
 user_info = {
     'wangzhengzhong':{'pwd':"password"},
     'fengkun':{'pwd':"password"},
@@ -121,7 +121,7 @@ def login_cookie(request):
             res.set_cookie('username111',u,expires=current_date)
             return res
         else:
-            return render(request,'login_cookie.html')
+           return render(request,'login_cookie.html')
 def login_cookie_index(request):
     v = request.COOKIES.get('username111')
     if not v:
@@ -162,10 +162,10 @@ def login_session(request):
         else:
             return render(request,'login_session.html')
 #@csrf_exempt #不适用csrf
-@csrf_protect#使用csrf
+#@csrf_protect#使用csrf
 def index_session(request):
-    #获取当前用户随机字符
-    #根据随机字符获取对应信息
+   #获取当前用户随机字符
+   #根据随机字符获取对应信息
     if request.session.get('is_login',None):
         return render(request,'index_session.html',{'username':request.session['username']})
     else:
@@ -173,10 +173,49 @@ def index_session(request):
 def logout_session(request):
     request.session.clear()
     return redirect('/login_session/')
-from django.views.decorators.csrf import csrf_exempt,csrf_protect
-from django.views.decorators.cache import cache_page
+#from django.views.decorators.csrf import csrf_exempt,csrf_protect
+#from django.views.decorators.cache import cache_page
 #@cache_page(10) #缓存装饰器,全截面的方式
 def cache(request):
-    import time 
-    ctime = time.time()
-    return render(request,'cache.html',{'ctime':ctime})
+   import time 
+   ctime = time.time()
+   return render(request,'cache.html',{'ctime':ctime})
+#form认证-------------------------
+from django import forms #认证模块
+from django.forms import widgets #样式插件
+from django.forms import fields #字段插件
+class FM(forms.Form):
+    # 字段本身只做验证
+    user = fields.CharField(
+        error_messages={'required':'用户名不能为空'},
+        widget=widgets.Textarea(attrs={'class':'c1'}),
+        label="用户",
+        initial="root",
+        )
+    pwd = fields.CharField(
+        max_length=12,
+        min_length=6,
+        error_messages={'required':'密码不能为空','min_length':'密码长度不能小于6','max_length':'密码长度不能大于12'},
+        widget=widgets.PasswordInput,
+        label="密码"
+        )
+    email = fields.EmailField(error_messages={'required': '邮箱不能为空.','invalid':"邮箱格式错误"},
+        label="邮箱"
+        )
+
+
+def fm(request):
+    if request.method == "GET":
+        
+        obj =FM(initial=dic)
+        return render(request,'fm.html',{'obj':obj})
+    elif request.method == 'POST':
+        obj = FM(request.POST)
+        r1 = obj.is_valid()
+        if r1:
+            print (obj.cleaned_data)
+        else:
+        #    print (obj.errors['user'][0])
+            print (obj.errors.as_json)
+            return render(request,'fm.html',{'obj':obj})
+        return render(request,'fm.html')

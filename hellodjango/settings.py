@@ -42,8 +42,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+#    'django.middleware.cache.UpdateCacheMiddleware',
+#    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,19 +83,19 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #  ##家数据库
-          'ENGINE': 'django.db.backends.mysql',
-          'NAME':'wangzz',#连接的库名
-          'USER':'root',#连接的用户
-          'PASSWORD':'Pass3@word',#连接密码
-          'HOST':'192.168.1.11',#连接ip
-          'PORT':'3306',#连接端口
+#          'ENGINE': 'django.db.backends.mysql',
+#          'NAME':'wangzz',#连接的库名
+#          'USER':'root',#连接的用户
+#          'PASSWORD':'Pass3@word',#连接密码
+#          'HOST':'192.168.1.11',#连接ip
+#          'PORT':'3306',#连接端口
 #公司数据库
-#        'ENGINE': 'django.db.backends.mysql',
- #       'NAME':'wangzz',#连接的库名
- #       'USER':'root',#连接的用户
- #       'PASSWORD':'',#连接密码
- #       'HOST':'127.0.0.1',#连接ip
- #       'PORT':'3306',#连接端口
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'wangzz',#连接的库名
+        'USER':'root',#连接的用户
+        'PASSWORD':'',#连接密码
+        'HOST':'127.0.0.1',#连接ip
+        'PORT':'3306',#连接端口
 
     }
 }
@@ -143,7 +143,7 @@ STATICFILES_DIRS = (
 )
 #SESSION_ENGINE = 'django.contrib.session.backends.cache' #session存在内存的引擎
 #SESSION_CHAHE_ALIAS = 'memdb'
-SESSION_SAVE_EVERY_REQUEST = True
+#SESSION_SAVE_EVERY_REQUEST = True
 #CACHE = {
 #     'memdb':{
 #         'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
@@ -154,12 +154,12 @@ SESSION_SAVE_EVERY_REQUEST = True
 #}
 #APPEND_SLASH=False
 
-CACHES = {  #页面缓存
-    'default':{
-        'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/var/tmp/django_cache',
-    }
-}
+#CACHES = {  #页面缓存
+#    'default':{
+#        'BACKEND':'django.core.cache.backends.filebased.FileBasedCache',
+#        'LOCATION': '/var/tmp/django_cache',
+#    }
+#}
 
 
 
